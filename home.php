@@ -1,3 +1,49 @@
+<?php
+     include("config/db_connect.php");
+
+    // Get all locations
+$location_list = [];
+$result = mysqli_query($conn, "SELECT * FROM location");
+
+while($row = mysqli_fetch_assoc($result)){
+    $location_list[] = $row;
+}
+
+// search buses
+
+$search_result = [];
+
+if(isset($_GET['search'])){
+
+    $from = mysqli_real_escape_string($conn, $_GET['from']);
+    $to = mysqli_real_escape_string($conn, $_GET['to']);
+    $schedule = mysqli_real_escape_string($conn, $_GET['schedule']);
+
+    if($from != $to){
+
+        $sql = "SELECT b.*, 
+                       l1.location_name AS from_name,
+                       l2.location_name AS to_name,
+                       r.route_id,
+                       c.contact
+                FROM bus b
+                JOIN location l1 ON b.start_location_id = l1.location_id
+                JOIN location l2 ON b.destination_location_id = l2.location_id
+                JOIN route r ON b.route_id = r.route_id
+                LEFT JOIN contact c ON b.id = c.bus_id
+                WHERE b.start_location_id = '$from'
+                AND b.destination_location_id = '$to'
+                AND b.schedule_type = '$schedule'";
+
+        $query = mysqli_query($conn, $sql);
+
+        while($row = mysqli_fetch_assoc($query)){
+            $search_result[] = $row;
+        }
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,65 +55,93 @@
 </head>
 <body>
     <?php
-    require("includes/header.php");
-   ?>
-     <!-- Hero Section -->
-    <section class="hero">
-        <div class="search-box">
-            <h2>Find Your Bus</h2>
+     require("includes/header.php");
+    ?>
 
+    
+
+    <!-- Hero Section -->
+<section class="hero">
+    <div class="search-box">
+        <h2>Find Your Bus</h2>
+
+        <form method="GET">
             <div class="form-group">
+
                 <div>
                     <label>From:</label>
-                    <select>
-                        <option>Colombo Fort</option>
-                        <option>Kandy</option>
-                        <option>Galle</option>
+                    <select name="from" required>
+                        <option value="">Select Location</option>
+                        <?php
+                        foreach($location_list as $loc){
+                            echo "<option value='".$loc['location_id']."'>".$loc['location_name']."</option>";
+                        }
+                        ?>
                     </select>
                 </div>
 
                 <div>
                     <label>To:</label>
-                    <select>
-                        <option>Kandy</option>
-                        <option>Colombo Fort</option>
-                        <option>Jaffna</option>
+                    <select name="to" required>
+                        <option value="">Select Location</option>
+                        <?php
+                        foreach($location_list as $loc){
+                            echo "<option value='".$loc['location_id']."'>".$loc['location_name']."</option>";
+                        }
+                        ?>
                     </select>
                 </div>
+
+                <div>
+                    <label>Schedule</label>
+                    <select name="schedule" required>
+                        <option value="week-day">week-day</option>
+                        <option value="saturday">saturday</option>
+                        <option value="sunday">sunday</option>
+                    </select>
+                </div>
+
             </div>
 
-            <button>Search Buses</button>
-        </div>
-    </section>
+            <button type="submit" name="search">Search Buses</button>
+        </form>
+    </div>
+</section>
 
     <!-- Bus Results -->
-    <section class="results">
-        <h2>Available Bus Services: Colombo Fort to Kandy</h2>
+<section class="results">
+    <h2>Available Bus Services</h2>
 
-        <div class="bus-card">
-            <div><strong>Departure:</strong> 06:30 AM</div>
-            <div><strong>Arrival (Est.):</strong> 09:30 AM</div>
-            <div><strong>Duration:</strong> 3h 00m</div>
-            <div><strong>Bus Type:</strong> SLTB (Intercity)</div>
-            <div><strong>Frequency:</strong> Every 30 mins</div>
-        </div>
+    <?php if(isset($_GET['search'])): ?>
 
-        <div class="bus-card">
-            <div><strong>Departure:</strong> 07:00 AM</div>
-            <div><strong>Arrival (Est.):</strong> 10:15 AM</div>
-            <div><strong>Duration:</strong> 3h 15m</div>
-            <div><strong>Bus Type:</strong> Private (Semi-Luxury)</div>
-            <div><strong>Frequency:</strong> Hourly</div>
-        </div>
+        <?php if($from == $to): ?>
+            <p>Please select different locations.</p>
 
-        <div class="bus-card">
-            <div><strong>Departure:</strong> 07:45 AM</div>
-            <div><strong>Arrival (Est.):</strong> 10:30 AM</div>
-            <div><strong>Duration:</strong> 2h 45m</div>
-            <div><strong>Bus Type:</strong> Private (Highway A/C)</div>
-            <div><strong>Frequency:</strong> Every 45 mins</div>
-        </div>
-    </section>
+        <?php elseif(count($search_result) > 0): ?>
+
+            <?php foreach($search_result as $bus): ?>
+
+                <div class="bus-card">
+                    <div><strong>From:</strong> <?php echo $bus['from_name']; ?></div>
+                    <div><strong>Departure:</strong> <?php echo $bus['departure_time']; ?></div>
+                    <div><strong>To:</strong> <?php echo $bus['to_name']; ?></div>
+                    <div><strong>Arrival:</strong> <?php echo $bus['arrival_time']; ?></div>
+                    <div><strong>Schedule:</strong> <?php echo $bus['schedule_type']; ?></div>
+                    <div><strong>Category:</strong> <?php echo $bus['category']; ?></div>
+                    <div><strong>Vehicle No:</strong> <?php echo $bus['vehicle_no']; ?></div>
+                    <div><strong>Route ID:</strong> <?php echo $bus['route_id']; ?></div>
+                    <div><strong>Ownership:</strong> <?php echo $bus['ownership']; ?></div>
+                    <div><strong>Contact:</strong> <?php echo $bus['contact']; ?></div>
+                </div>
+
+            <?php endforeach; ?>
+
+        <?php else: ?>
+            <p>No buses found.</p>
+        <?php endif; ?>
+
+    <?php endif; ?>
+</section>
 
     <?php
     include("includes/footer.php");

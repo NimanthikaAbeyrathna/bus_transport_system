@@ -8,7 +8,7 @@ if(isset($_POST['submit'])){  // check if form submitted
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $message = mysqli_real_escape_string($conn, $_POST['message']);
 
-    $sql = "INSERT INTO contact_messages (name, email, message) 
+    $sql = "INSERT INTO contact_message (name, email, message) 
             VALUES ('$name', '$email', '$message')";
 
     if(mysqli_query($conn, $sql)){

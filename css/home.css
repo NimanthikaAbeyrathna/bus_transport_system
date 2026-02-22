@@ -74,7 +74,7 @@ button:hover {
 
 .bus-card {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     background: white;
     padding: 20px;
     border-radius: 10px;
