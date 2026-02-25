@@ -4,7 +4,7 @@
     padding: 40px;
     background: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
@@ -23,8 +23,8 @@
 }
 
 .contact-form input,
-.contact-form textarea, 
-.contact-form button{
+.contact-form textarea,
+.contact-form button {
     width: 80%;
     padding: 10px;
     margin: 10px 0;

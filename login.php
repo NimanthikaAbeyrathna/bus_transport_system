@@ -2,7 +2,7 @@
 session_start();
 include("config/db_connect.php");
 
-if(isset($_POST['login'])){
+if (isset($_POST['login'])) {
 
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
@@ -10,11 +10,11 @@ if(isset($_POST['login'])){
     $sql = "SELECT * FROM user WHERE email='$email'";
     $result = mysqli_query($conn, $sql);
 
-    if(mysqli_num_rows($result) == 1){
+    if (mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_assoc($result);
 
         // Verify password
-        if(password_verify($password, $row['password'])){
+        if (password_verify($password, $row['password'])) {
             // Set session
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['user_name'] = $row['name'];
@@ -34,6 +34,7 @@ if(isset($_POST['login'])){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,14 +43,15 @@ if(isset($_POST['login'])){
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/login.css">
 </head>
+
 <body>
     <div class="login-container">
         <form action="login.php" method="POST" class="login-form">
             <h2>Login</h2>
 
-            <?php if(isset($error)) { ?>
-            <p style="color:red; text-align:center;"><?php echo $error; ?></p>
-        <?php } ?>
+            <?php if (isset($error)) { ?>
+                <p style="color:red; text-align:center;"><?php echo $error; ?></p>
+            <?php } ?>
 
             <div class="input-group">
                 <label>Email</label>
@@ -69,4 +71,5 @@ if(isset($_POST['login'])){
         </form>
     </div>
 </body>
+
 </html>

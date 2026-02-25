@@ -12,18 +12,18 @@ body {
 /* Hero */
 .hero {
     background: url('../images/background.jpg') center/cover no-repeat;
-    min-height: 90vh;   /* or 100vh */
+    min-height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .search-box {
-    background: rgba(255,255,255,0.95);
+    background: rgba(255, 255, 255, 0.95);
     padding: 30px;
     border-radius: 12px;
     width: 60%;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .search-box h2 {
@@ -75,13 +75,12 @@ button:hover {
 .bus-card {
     display: flex;
     justify-content: space-evenly;
-    background: white;
+    background: linear-gradient(135deg, #d6d3e7, #91d7bd);;
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 15px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
     flex-wrap: wrap;
     gap: 10px;
 }
-
 

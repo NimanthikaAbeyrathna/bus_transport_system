@@ -18,7 +18,7 @@ body {
     padding: 40px;
     width: 350px;
     border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .login-form h2 {

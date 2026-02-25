@@ -1,0 +1,160 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;   /* Align to top */
+    width: 100%;
+    padding-top: 20px;
+}
+
+.container h1 {
+    margin-bottom: 20px;
+    color: #333;
+    padding: 20px;
+}
+
+.form-container {
+    background: white;
+    padding: 15px 25px;      /* Reduced padding */
+    width: 95%;              /* Make it longer */
+    max-width: 1200px;       /* Allow wide layout */
+    margin: 10px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 25px;
+}
+button {
+    grid-column: span 2;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background: #0a1f5c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #14368c;
+}
+
+
+/* table */
+
+.table-title {
+    text-align: center;
+    margin: 40px 0 20px;
+    color: #0a1f5c;
+}
+
+/* Table Container */
+.table-container {
+    width: 95%;
+    margin: auto;
+    overflow-x: auto;
+}
+
+/* Main Table */
+
+.bus-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+
+
+/* Header */
+.bus-table thead {
+    background: linear-gradient(90deg, #0a1f5c, #14368c);
+    color: white;
+}
+
+.bus-table th {
+    padding: 14px;
+    text-align: left;
+    font-weight: 600;
+}
+
+/* Body Rows */
+.bus-table td {
+    padding: 12px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* Hover Effect */
+.bus-table tbody tr:hover {
+    background-color: #f5f8ff;
+    transition: 0.2s;
+}
+
+/* Zebra Striping */
+.bus-table tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* Buttons */
+.btn-edit {
+    padding: 4px 8px;
+    background: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.btn-edit:hover {
+    background: #218838;
+}
+
+.btn-delete {
+    padding: 4px 8px;
+    background: #dc3545;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+}
