@@ -120,7 +120,7 @@ if (isset($_GET['delete_id'])) {
 
 <body>
     <?php
-    require("includes/header.php");
+    require("includes/admin_home_header.php");
     ?>
     <div class="container">
         <h1>Update Bus Records</h1>

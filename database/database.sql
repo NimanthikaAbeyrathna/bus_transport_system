@@ -3,20 +3,23 @@ CREATE TABLE
         user_id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
         email VARCHAR(150) NOT NULL UNIQUE,
-        password VARCHAR(255) NOT NULL
+        password VARCHAR(255) NOT NULL,
+        role ENUM('admin','user') DEFAULT 'user'
     );
 
 INSERT INTO
-    user (name, email, password)
+    user (name, email, password,role)
 VALUES
-    ('nima', 'nima@gmail.com', '$2y$');
+    ('nima', 'nima@gmail.com', 'abc', 'admin'),
+    ('kamal', 'kamal@gmail.com', 'dfr', 'user'),
+    ('saman', 'saman@gmail.com', 'dfgdgd', 'user');
 
 CREATE TABLE
     contact_message (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(100),
         email VARCHAR(100),
-        message VARCHAR(500),
+        message VARCHAR(1000),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 

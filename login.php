@@ -7,24 +7,34 @@ if (isset($_POST['login'])) {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM user WHERE email='$email'";
+    $sql = "SELECT * FROM user WHERE email='$email' LIMIT 1";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) == 1) {
+
         $row = mysqli_fetch_assoc($result);
 
         // Verify password
         if (password_verify($password, $row['password'])) {
-            // Set session
-            $_SESSION['user_id'] = $row['id'];
-            $_SESSION['user_name'] = $row['name'];
 
-            // Redirect to home page
-            header("Location: home.php");
+            // ✅ Store session values
+            $_SESSION['user_id'] = $row['user_id'];  // correct column name
+            $_SESSION['user_name'] = $row['name'];
+            $_SESSION['role'] = $row['role'];
+
+            // ✅ Redirect based on role
+            if ($row['role'] === 'admin') {
+                header("Location: admin_home.php");
+            } else {
+                header("Location: home.php");
+            }
+
             exit();
+
         } else {
             $error = "Incorrect password!";
         }
+
     } else {
         $error = "Email not registered!";
     }

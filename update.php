@@ -95,7 +95,7 @@ if (isset($_POST['update_bus'])) {
 
 <body class="bg-light">
 
-    <?php include("includes/header.php"); ?>
+    <?php    require("includes/admin_home_header.php");?>
 
     <div class="container py-5">
         <div class="row justify-content-center">

@@ -18,9 +18,9 @@
 
         <nav>
 
-            <a href="home.php">Home</a>
-            <a href="about.php">About</a>
-            <a href="contact.php">Contact</a>
+            <a href="admin_home.php">Home</a>
+            <a href="edit.php">New Bus</a>
+            <a href="message.php">View message</a>
             <a href="login.php">Log-in/Sign-up</a>
             <a href="login.php">Log out</a>
         </nav>

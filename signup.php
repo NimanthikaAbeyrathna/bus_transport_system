@@ -23,8 +23,8 @@ if (isset($_POST["submit"])) {
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO user(name,email,password)
-            VALUES('$name','$email','$hashed_password')";
+    $sql = "INSERT INTO user(name,email,password,role)
+            VALUES('$name','$email','$hashed_password','user')";
 
     if (mysqli_query($conn, $sql)) {
         // Log in new user immediately
@@ -32,7 +32,7 @@ if (isset($_POST["submit"])) {
         $_SESSION['user_id'] = mysqli_insert_id($conn);
         $_SESSION['user_name'] = $name;
 
-        header("Location: home.php"); // Redirect to home
+        header("Location: index.php"); // Redirect to home
         exit();
     } else {
         echo "Query error: " . mysqli_error($conn);
